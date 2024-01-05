@@ -1,0 +1,78 @@
+NOTES FOR OverTheWire: Bandit
+
+Commands referenced:
+ls: list all files
+cd: go into directory
+cat: open and read a file
+du:
+find: find a specific parameter
+grep:
+man: find the manual pages of commands
+sort:
+uniq:
+strings:
+base64: encode or decode text into or out of base64
+tr: translate text
+tar:
+gzip:
+bzip2:
+xxd:
+mkdir: make a directory
+cp: copy a file or directory
+mv: move a file or directory
+
+bandit0
+How to ssh: ssh username@host -p portnumber  
+
+bandit0 -> bandit1
+password found in the readme
+
+bandit1 -> bandit2
+How to open files with '-' in the name: need to specify location (ex: cat ./-)
+
+bandit2 -> bandit3
+How to open files with spaces in the file name: need to wrap file name in quotes or put a backslash before each space
+(ex: "file with spaces" or file\ with\ spaces)
+
+bandit3 -> bandit4
+hidden files (. files) can be listed and found with "ls -a" or "ls -all"
+
+bandit4 -> bandit5
+opened each file to find which was human readable: found in file07
+
+bandit5 -> bandit6
+use find to find file size: find -size 1033c
+
+bandit6 -> bandit7
+the file is found somewhere on the server so you need to backout to the base directory to find the file
+you can stack finds: find -size 33c -group bandit7 -user bandit6
+Comment from Jeff: 
+   "Sydney DM'd me her attempted find command, which was great. But what I'm sure she experienced and many of you may 
+      have as well is sometimes you get overwhelmed by "permission denied" and other error messages. So instead of 
+      doing find [dir] [flags] whatever, you can pipe the standard error (stderr) output away from your terminal like this:
+         find / blah blah blah 2>/dev/null
+      That is, you pipe file #2 (i.e., stderr) to the pseudo-file /dev/null, which has the effect of just discarding all 
+   the stderr output."
+
+bandit7 -> bandit8
+you can use grep to find words and which file line it is located on: grep -n "word" filename
+
+bandit8 -> bandit9
+you need to sort the file before you can find the line that only occurs once
+uniq -u only works on adjacent lines
+sort places all the lines adjacent to one another
+sort filename | uniq -u
+
+bandit9 -> bandit10
+To output all the human readable strings use: strings filename
+
+bandit10 -> bandit11
+to decode a file encoded in base64: base64 -d filename
+
+bandit11 -> bandit12
+You can use tr to translate a given string: cat filename | tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
+
+bandit12 -> bandit13
+reverse a hexdump: xxd -r inputfile > outputfile
+stuck: how to decompress a file??
+
