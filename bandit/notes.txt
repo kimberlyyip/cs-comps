@@ -23,25 +23,32 @@ mv: move a file or directory
 
 bandit0
 How to ssh: ssh username@host -p portnumber  
+password: bandit0
 
 bandit0 -> bandit1
 password found in the readme
+password: NH2SXQwcBdpmTEzi3bvBHMM9H66vVXjL
 
 bandit1 -> bandit2
 How to open files with '-' in the name: need to specify location (ex: cat ./-)
+password: rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi
 
 bandit2 -> bandit3
 How to open files with spaces in the file name: need to wrap file name in quotes or put a backslash before each space
 (ex: "file with spaces" or file\ with\ spaces)
+password: aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG
 
 bandit3 -> bandit4
 hidden files (. files) can be listed and found with "ls -a" or "ls -all"
+password: 2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe
 
 bandit4 -> bandit5
 opened each file to find which was human readable: found in file07
+password: lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR
 
 bandit5 -> bandit6
 use find to find file size: find -size 1033c
+password: P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU
 
 bandit6 -> bandit7
 the file is found somewhere on the server so you need to backout to the base directory to find the file
@@ -53,26 +60,91 @@ Comment from Jeff:
          find / blah blah blah 2>/dev/null
       That is, you pipe file #2 (i.e., stderr) to the pseudo-file /dev/null, which has the effect of just discarding all 
    the stderr output."
+password: /var/lib/dpkg/info/bandit7.password
 
 bandit7 -> bandit8
 you can use grep to find words and which file line it is located on: grep -n "word" filename
+password: TESKZC0XvTetK0S9xNwm25STk5iWrBvP
 
 bandit8 -> bandit9
 you need to sort the file before you can find the line that only occurs once
 uniq -u only works on adjacent lines
 sort places all the lines adjacent to one another
 sort filename | uniq -u
+password: EN632PlfYiZbn3PhVK3XOGSlNInNE00t
 
 bandit9 -> bandit10
 To output all the human readable strings use: strings filename
+password: G7w8LIi6J3kTb8A7j9LgrywtEUlyyp6s
 
 bandit10 -> bandit11
 to decode a file encoded in base64: base64 -d filename
+password: 6zPeziLdR2RKNdNYFNb6nVCKzphlXHBM
 
 bandit11 -> bandit12
 You can use tr to translate a given string: cat filename | tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
+password: JVNBBFSmZwKKOP0XbFXOoW8chDz5yVRv
 
 bandit12 -> bandit13
 reverse a hexdump: xxd -r inputfile > outputfile
-stuck: how to decompress a file??
+use file to check file type 
+change the name of the file to be a valid file type and then decompress
+initially a gzip compress file: gzip -d file.txt.gz
+then a bzip compress file: bzip2 -d file.txt.bz
+then a gzip compress file
+then tar: tar -xf file.txt.tar
+then tar
+then bzip
+then tar
+then gzip 
+password: wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw 
 
+bandit13 -> bandit14
+ssh -i sshkey.private bandit14@localhost -p 2220
+
+bandit14 -> bandit15
+password: fGrHPx402xGC7U7rXKDaxiWFTOiF0ENq
+nc localhost 30000
+password: jN2kgmIXJ6fShzhT2avhotn4Zcka6tnt
+paste the password from the previous level to get the password to the next level
+what does nc mean?
+- nc stands for net cat (concatenate)
+- means to send network traffic back and forth
+nc host port
+1. make a TCP connection for the remote server
+2. wait for stdin/keyboard input, send it along to the server
+3. print anything the server sends back 
+nc makes a connection the server allowing you to send the password from the previous level, when it receives an input,
+it sends a response or kills the connection
+this is not much different from ssh
+
+bandit15 -> bandit16
+protocol used for this level is tls which is an encrypted protocol
+openssl s_client -connect localhost:30001
+submit the previous password to output the next password
+password: JQttfApK4SeyHwDlI9SXGR50qclOAil1
+
+bandit16 -> bandit17
+need to scan the range and find which ports are open and available: nmap -p31000-32000 localhost
+openssl s_client -connect localhost:31790
+given a rsa private key which needs to be pasted into a file within tmp directory make sure to copy all of it
+from the "begin rsa key" to the "end rsa key"
+ssh -i filecontainingprivatekey.txt bandit17@localhost -p 2220
+
+bandit17 -> bandit18
+Find the difference between the two files: diff passwords.new passwords.old
+passwordnew: hga5tuuCLF6fFzUpnagiMN8ssu9LFrdg
+
+bandit18 -> bandit19
+ssh bandit18@bandit.labs.overthewire.org -p 2220 -t "/bin/sh"
+The -t flag of the SSH command is used to specify the shell to be used to login into the system.
+password:awhqfNnAbc1naukrpqDYcF95h7HoMTrC
+
+bandit19 -> bandit20
+execute the setuid binary without any arguments to find out how to use it: ./bandit20-do
+it is used by: ./bandit20-do command
+passwords for files are usually found in /etc/bandit_pass/nameOfCurrentLevel
+./bandit20-do cat /etc/bandit_pass/bandit20
+password: VxCazJaVykI6W36BkBU0mJTCM8rR95XT
+
+bandit20 -> bandit21
