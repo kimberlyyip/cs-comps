@@ -1,0 +1,106 @@
+--- Intro to Unix Part 1 ---
+1969: Dennis Ritchie and Ken Thompson
+- won the 1983 Turing Award
+
+basic unix commands:
+pwd: path of working directory
+ls: shows the contents of current directory
+ls -a: shows all the files of the current directory (including those that start with a period)
+ls -l: long form of the list command that tells you the permissions of the file, who create it, how many bytes it is, when it was created, and name of file
+cp: copy
+man: manual
+mv: move
+rm: remove
+cat: concatenate, will print out the contents of the file
+mkdir: make directory
+rmdir: remove directory
+cd: move into specific directories
+which: find out what version or where the command is stored
+
+unix philosophy:
+- many small, focused programs
+- mechanisms for combining small programs into bigger ones
+- favor text as input and output
+
+--- Intro to Unix Part 2 ---
+Operating systems
+- memory 
+-files
+- processes
+- hardware
+- interface for programs to request services
+
+command shell: a program that lets your run other programs, manipulate files and directories, etc.  
+
+text/command-line shells
+
+a few unix and bash essentials
+- permissions 
+- redirection
+- environment variables
+- start-up files
+
+unix permissions
+- user 
+- group 
+- others
+  ls -l goat.txt
+   _rw_r__r__ jondich faculty
+   - first slot refers to the directory
+   - next three slots refer to the user permissions
+   - next three slots refer to the group prermissions
+   - next three slots refer to the other permissions
+   - jondich in this case is the user
+   - faculty in this case is the group
+   - the order of permissions is:
+    - read (r)
+    - write (w)
+    - execute (x)
+- use chmod to add or delete permissions (ex. chmod +w goat.txt)
+- you can use binary representation to change the permissions
+
+redirection: input/output streams
+- standard output ("stdout") defaults to the screen
+- standard input ("stdin") defaults to the keyboard
+- standard error ("stderr") defaults to the screen
+
+some unix commands produce output without taking input (ex. ls, history)
+- send output to stdout and error messages to stderr
+
+most unix commands take input from files specified on the command line 
+- if no files are specified a command like wc takes input from stdin
+
+vertical bar or "pipe" (|): connects the output of one process to the input of another
+
+you can use > to "redirect stdout" to a file
+
+environment variables:
+- pre-initialized variables available to any program run from the shell
+- usually info about the system or your account
+- enviornment variables tend to be all caps
+- to see all environemnt variables you can type "env" into the command line
+
+the PATH env. var.
+- PATH = /bin/usr/bin
+-- looks in bin first then /usr/bin second
+
+startup files
+- when you open a bash terminal, the commands in one or more "start-up files" get executed
+-- ex. .bashrc or .bash_profile
+
+--- Intro to HTTP ---
+- computers connected to the network have "IP addresses"
+- the point of the tcp handshake is to set up a communication path between the client and the server
+- clients ask servers for stuff
+- client-server connection is set up via TCP handshake
+- web clients (i.e. browsers) use HTTP to articulate requests; web server responses use HTTP too
+
+"server": hardware or software?
+- the machine is called a "server"
+- so is the software
+
+"Ports": standard #s that say "ths is a webserver" or "this is an SSH server"
+
+What about HTTPS?
+- S stands for secure
+- each communication is encrypted
