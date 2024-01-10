@@ -148,3 +148,13 @@ passwords for files are usually found in /etc/bandit_pass/nameOfCurrentLevel
 password: VxCazJaVykI6W36BkBU0mJTCM8rR95XT
 
 bandit20 -> bandit21
+
+bandit21 -> bandit22
+cron?
+all stars indicate to run this file every minute as the user named 
+/dev/null is like a trash can
+644 octal can be written as 110 (rw-) 100 (r--) 100 (r--)
+cat /usr/bin/cronjob_bandit22.sh
+#!/bin/bash
+chmod 644 /tmp/...
+cat /etc/bandit_pass/bandit22 > /tmp/...
