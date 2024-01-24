@@ -1,0 +1,17 @@
+Jan. 12, 2024
+
+How to go deeper in comps final proj?
+- set up your vm but how can you make it more verbose?
+- the vm may be set up with basic linux knowledge but...
+- ...dig deeper in the reasonings behind that
+-- ex. why does this process use MD5 over SHA-256?
+-- What is the history and development behind MD5?
+-- what does sudo do?
+-- what does setuid do?
+- Look at the literature, source code, famous bugs 
+- ex. of famous bugs:
+-- Heartbleed (OpenSSL)
+-- Shellshock (bash)
+- Pick a spot in you project to go deeper
+
+

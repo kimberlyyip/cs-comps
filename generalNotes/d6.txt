@@ -1,0 +1,54 @@
+jan. 15 2024
+
+local file inclusion
+- through the url, change to access different webpages that may contain secret files
+- ex. http://ipaddress/page=/etc/passwd
+- main idea: use url to navigate through the directory
+- basename().php can be used to prevent navigating through directory with url
+- how to prevent? sanitize user input, use 2fac for your password, basename.php
+- ex. http://ipaddress/page=/etc/passwd
+- attackers trick a webapp into either running or exposing files on a web server
+- mainly uses include statement, runs scripts rather than viewing them 
+- files are already present within a web application 
+- not injecting something new, but accessing something that is already present
+- similar to directory traversal, using url to access hidden info that is already on the page
+- how to prevent? sanitize user input (create a whitelist of safe files, store filenames in a db and use table row identities in user input)
+
+remote file inclusion
+- instead of the file being present in the webserver, you are inserting a script into the server
+- allows you to grab files from an external webserver
+- running two servers: host server, attacking server
+- through the url, can put the url of the attacking server into the host server to run script
+- how to prevent? sanitize user input, whitelist of authorized files
+- apache by default, disables executing files by include, if you want to do this need to change the config file
+- by default, php will not allow remote file inclusion like this
+-- why would you ever turn it on? to do maintanence or there is a feature on the remote server that needs to be transferred over or inclusion
+--   of libraries
+
+file upload attack
+- when an attacker uploads a malicious file which exploits in some way the hosting server when run
+- how happen? bad validation of upload files (not checking file is right format, not checking size, minimal permissions)
+- how prevent? sanitize file names, use built in sanitation systems
+
+directory traversal
+- ex. http://----------/../../../etc/passwd
+- does 'include($REQUEST['page'])' execute the php code?
+- often thwarted by the server software
+
+SQL injection
+- enter malicious SQL query into vulnerable SQL entry
+- can check is sql entry is vulnerable is by entering an apostrophe 
+-- this makes the number of apostophes uneven, producing an error
+- how to prevent? sanitize user input, utilize placeholder function (auto cleans, need to input both username and password)
+
+/etc/passwd
+- not passwords, so what do you get out of downloading the file? you get info about the names of the users
+ 
+/etc/shadow
+- shadow is readable and writable by root and readable by the shadow group but not readable by anyone else
+
+next up:
+- building vm and sharing together
+- given more linux vulnerabilities
+- by end of week start building one vulnerability vm
+

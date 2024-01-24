@@ -1,0 +1,50 @@
+Jan. 24, 2024
+
+dhcp: dynamic host configuration protocol 
+- will attempt to connect to a dh-- server
+
+attempt to fix the fail of boot of new vms
+- change the etc/net/00-yaml file to include both ens33 and enops1, and set both to true
+
+du -sh ~/Virtual\ Machines.localized/*
+- gives you all the machines and the size
+
+What techniques were useful?
+- gobuster
+- try to think like the people ("WWRD")
+- searchsploit 
+-- searchsploit -m textfile code
+-- then can look at the file given and read it
+- search online for reverse shells (revshells.com)
+
+"lateral movement" and "privilege escalation"
+- lateral movement: move from one machine to another
+- privilege escalation: can i move from one user to a more privliged user; goal is to be root
+- steps
+-- TargetA
+--- php-based web server
+--- directory traversal + weblog poisoning
+--- get reverse shell
+--- look around, find Database.kdbk
+-- Offline
+--- crack Database.kdbx master password
+--- dig through database and find private key for sarah
+-- TargetB
+--- ssh -i key.sarah sarah@IP_target_B
+--- poke around
+--- find: /etc/cron.d/backup -- running once per minute
+---       /var/backup/create_backup.sh -- sarah can't read it
+--- /opt/backupborg/* -- borg is a backup utility
+--- sudo -l -- sarah can run "borg list", "borg extract", and "borg mount" as root with sudo and not password
+--- try "borg list /opt/backupborg" -- nope, you need a passphrase
+--- pspy64 to show me new processes as they launch; one of the processes had the passphrase in the command line
+--- run borg list, borg extract... get some files
+--- the files have secrets 
+--- i have to crack another password 
+--- now i'm root
+--- htop
+
+poison the /var/log file
+access the /var/log file through directory traversal
+run php code that you used to poison the log
+

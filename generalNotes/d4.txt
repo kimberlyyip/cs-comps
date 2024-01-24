@@ -1,0 +1,37 @@
+jan. 10, 2024
+
+short reports on some web security vulnerabitlity classes w/ a demo
+1. 
+2. creating a vm example for demo
+3. presentation
+use php why? common for types of attacks (mainly cause wordpress is written in it)
+
+when downloading Burp Proxy (on Kali?)
+- sudo apt update
+-- apt is similar to homebrew
+- sudo apt upgrade
+- sudo atp install burpsuite
+
+proxy tool in Burp Suite
+- proxy > intercept > open browser > intercept is on
+
+make sure its not in https but rather http then you can click 'forward'
+
+can use curl to control what you want to send to the server/see
+
+php like pearl starts variables with $
+- $_ is known as a super global variable
+- dictionaries in php are called arrays
+
+<?php
+    $user = $_REQUEST['user'];
+
+    echo  "Hello there, $user";
+?>
+
+if you want to combine GET and POST use REQUEST
+the browser does not get to see the php code
+
+
+
+

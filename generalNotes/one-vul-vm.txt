@@ -1,0 +1,22 @@
+One way to open a port is to start a server
+most likely called a ftp server
+systemctl not just to start the server but also to enable the server
+sudo systemctl enable ftp
+sudo systemctl start ftp
+
+enable says start at boot time 
+start says to start now 
+
+need to edit config files to see it point to the right things
+
+What is the defaulst config in ftp, can i put a default file in that space
+
+ftp has standard anonymous, allowing you to log in anonymously and access files in this anonymous space 
+
+How to actually open the port
+
+nft command
+
+all ports are open, but it may not have a server listening on them 
+
+firewall may reject certain ports

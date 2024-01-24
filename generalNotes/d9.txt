@@ -1,0 +1,34 @@
+Jan. 22, 2024
+
+Step by step how to start breaking in to a vm:
+- Find the ip address:
+-- ifconfig | grep inet
+-- nmap -sn 172.16.41.0/24
+(/24 indicates keep the leftmost 24 bits fixed and try all possible combinations after)
+-- VMware and UTM will also just tell you the ip address
+- "Enumeration" port scanning
+-- mkdir temporarydir
+-- nmap -sV -oN OUTPUTFILE -Pn IPADDRESS
+(if you find a server listening on a port, try to find out what version that is)
+(the default nmap -sV tries the top most common ports) 
+(the "-Pn" is only if you are sure that the computer is there at the IP address)
+-- in kali would also do: searchsploit apache 2.4
+-- curl --path-as-is http://IPADDRESS/../../../etc/passwd
+-- directory traversal attempting to go back three to var/www/html
+- gobutster directory 
+(trying to find files that are linked to the server but can't log in to them)
+(gobuster will try curl with a bunch of different stuff after the ipaddress)
+with an up to date apache, the ../../.. technique might not work
+
+A few initial steps when attacking a target
+- I'm assuming you know the IP or you need to do host detection
+- Web server? 
+  - Poke around, with and without Burp Suite
+    - File upload?
+    - Directory traversal? local/remote file inclusion?
+    - SQL injection?
+  - directory enumeration (gobuster)
+  - subdomain enumeration (gobuster)
+- Password spraying 
+
+An option to limit nmap is to block pings

