@@ -1,0 +1,42 @@
+Jan. 26, 2024
+
+Rough deadline guidlines found on class notes
+
+Authentication
+- Web "basic authentication"
+-- cs338.jeffondich.com/basicauth
+-- protocol
+-- implementation server-side
+-- .htpasswd file
+- Login passwords
+-- /etc/passwd
+--- no actual passwords just tells you the accounts
+-- /etc/shadow
+--- between the first colon and the second colon is all one form input
+--- the sections of the form are separated by $
+--- the salt is between the third and fourth $
+--- the salt is used to hash 
+--- www.cyberciti.biz/faq/understanding-etcshadow-file
+--- checks passwd file first for hash and checks to see if what the user typed in matches 
+--- if there is no hash in the passwd file to check against, then it checks the shadow file
+--- a possible vulnerability: write into the password file a password for root; use that password to 'login' to root, then you can run as root
+--- dependent on which file is checked first password or root
+--- protection against insider threats by storing the hash instead of the password itself
+-- cryptographic hash functions (shasum command)
+--- echo -n password | shasum -a 256 
+---- -n tag indicates to not include newline 
+---- shasum is to encode it with sha-256
+-- what does ssh do?
+- Password cracking: (popular tools: john the ripper, hashcat)
+-- passphrase on private key
+-- passphrase on zip file
+-- passphrase on password manager vault 
+-- xxx2john commands
+- Session keys 
+-- how cookies work 
+-- what is a session ke
+- so much more
+-- (Windows) NTLM, kerberos
+-- OAuth (authorization, not authentication, but people use it for authentication anywyay)
+
+
