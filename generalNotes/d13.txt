@@ -1,0 +1,20 @@
+Jan. 31, 2024
+
+Final deliverable:
+- poster + (written or video) walkthrough
+  - video would need to have a good amount of depth that is equivallent to the written walkthough
+- what jeff wants
+  - an interesting chain of vulns implemented in VM 
+  - a walkthough that includes
+    - step-by-step story of how a hacker goes from just knowing the IP address to having a root shell
+    - detauled, clear deeper dives into the mechanisms behind 1-3 of your vulns (supper complex? 1 deep dive is enough; interessting but simple? do 2+ deeper dives)
+  - a plausible story about how this VM might have gotten to be this way
+  - from here on out: it's yours to craft the way you want it 
+
+Feedback from draft1:
+- clarify how all the bugs chain together
+- write it from the attackers pov and give clairty about where you are starting
+
+what to expect oral exams: 
+- https://docs.google.com/document/d/1Q46UPAGpp375964EQedzlozaPed0N2uhq8fKnzM3UMI/edit?skip_itp2_check=true#heading=h.b88hw0gcskiv
+
