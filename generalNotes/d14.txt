@@ -1,0 +1,11 @@
+Feb. 2, 2024
+
+Exploits as a terse list
+- SQL injection to get IT admin account
+- unencrypt to get web admin account
+- check log files through log4j to get ceo website
+- file upload on ceo website to get reverse shell
+- find ssh key and ssh into ceo shell
+- sudo to root
+
+
