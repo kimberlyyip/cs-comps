@@ -3,3 +3,5 @@ things to consider for the poster/walkthrough
 - Why did we choose UniFi to execute shell shock?
 - How does shell shock work?
 - How did we use shell shock in our vm? how does taking advantage of this vulnerability take us one step forward to root?
+
+

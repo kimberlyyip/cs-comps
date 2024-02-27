@@ -1,0 +1,26 @@
+explain why we are doing this in the elevator pitch
+explain what your comps is
+what the vulnerabilties involved are, what these vulnerabilities are
+
+30s to a min elevator pitch
+- ask if they have been to the other posters and go from there
+- high level overview before questions
+- try a bunch of different versions 
+-- different pitches for different backgrounds
+-- think about what a prof might want to know
+
+Everybody: be able to simply say what the attacker has after each step of the attack (e.g. normal username and password, web shell as user, password hash of root, etc.)
+
++ Walkthroughs
+- walkthough should be deeper than the poster 
+- how does the vulnerability work
+- on the one hand its "what is this particular attacker going to do" on the other hand it "this is the line of code that causes this"
+- focus: learn more about the topic not just how to break into machines
+- include diagrams as well and screenshots
+- no longer than 20 pages (8-12 pages)
+- mitigation methods (great but not necessary) 
+- also explain why we made certain choices to implement our vulnerabilties (explain why unifi)
+
+practicioner tone rather than academic paper tone
+
+
